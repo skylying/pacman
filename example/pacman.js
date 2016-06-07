@@ -512,33 +512,28 @@ Pacman.User = function (game, map) {
 
 
         //Draw eyes
-        var xEyeMovePx,
-            yEyeMovePx;
-        switch(direction){
-            case LEFT:
-                xEyeMovePx = 3;
-                yEyeMovePx = -3;
-            break;
-            case RIGHT:
-                xEyeMovePx = -3;
-                yEyeMovePx = -3;
-                break;
-            case UP:
-                xEyeMovePx = 4;
-                yEyeMovePx = 1;
-            break;
-            case DOWN:
-                xEyeMovePx = 4;
-                yEyeMovePx = -2;
-                break;
-        }
+        //var f = 3;
+        var off = {};
+        off[RIGHT] = [-3, -3];
+        off[LEFT]  = [3, -3];
+        off[UP]    = [4, 1];
+        off[DOWN]  = [4, -2];
 
-        ctx.fillStyle = "#dd363a";
         ctx.beginPath();
-        ctx.moveTo((((position.x/10) * s) + s / 2)+xEyeMovePx,
-            (((position.y/10) * s) + s / 2)+yEyeMovePx);
-        ctx.arc((((position.x/10) * s) + s / 2)+xEyeMovePx,
-            (((position.y/10) * s) + s / 2)+yEyeMovePx, 2, 0, Math.PI * 2, false);
+        ctx.fillStyle = "#FFF";
+        ctx.moveTo((((position.x/10) * s) + s / 2)+off[direction][0], (((position.y/10) * s) + s / 2)+off[direction][1]);
+        ctx.arc((((position.x/10) * s) + s / 2)+off[direction][0],
+                (((position.y/10) * s) + s / 2)+off[direction][1], 3, 0, Math.PI * 2, false);
+        ctx.closePath();
+        ctx.fill();
+
+
+        ctx.beginPath();
+        ctx.fillStyle = "#000";
+        ctx.moveTo((((position.x/10) * s) + s / 2)+off[direction][0], (((position.y/10) * s) + s / 2)+off[direction][1]);
+        ctx.arc((((position.x/10) * s) + s / 2)+off[direction][0],
+            (((position.y/10) * s) + s / 2)+off[direction][1], 1, 0, Math.PI * 2, false);
+        ctx.closePath();
         ctx.fill();
     };
     
@@ -926,14 +921,20 @@ var PACMAN = (function () {
             ctx.fill();
 
             // Draw eyes
-            ctx.fillStyle = "#dd363a";
-            ctx.beginPath();
-            ctx.moveTo(150 + (25 * i) + map.blockSize / 2,
-                (topLeft+1) + map.blockSize / 2);
+            var off = {};
 
-            ctx.arc((150 + (25 * i) + map.blockSize / 2) -3,
-                ((topLeft+1) + map.blockSize / 2) -3,
-                1.5, 0, Math.PI * 2, false);
+            ctx.beginPath();
+            ctx.fillStyle = "#FFF";
+            ctx.moveTo(150 + (25 * i) + map.blockSize / 2, (topLeft+1) + map.blockSize / 2);
+            ctx.arc((150 + (25 * i) + map.blockSize / 2) -3, ((topLeft+1) + map.blockSize / 2) -3, 2, 0, Math.PI * 2, false);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.fillStyle = "#000";
+            ctx.moveTo(150 + (25 * i) + map.blockSize / 2, (topLeft+1) + map.blockSize / 2);
+            ctx.arc((150 + (25 * i) + map.blockSize / 2) -3, ((topLeft+1) + map.blockSize / 2) -3, 1, 0, Math.PI * 2, false);
+            ctx.closePath();
             ctx.fill();
         }
 
