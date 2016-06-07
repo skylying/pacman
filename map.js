@@ -13,7 +13,10 @@ Pacman.Map = function (size) {
     var height    = null, 
         width     = null, 
         blockSize = size,
-        pillSize  = 0,
+        pillMin   = 8,
+        pillMax   = 16,
+        pillStep  = 0.4,
+        pillSize  = pillMin,
         map       = null;
     
     function withinBounds(y, x) {
@@ -80,28 +83,28 @@ Pacman.Map = function (size) {
     };
 
     function drawPills(ctx) { 
+        var img = document.getElementById('tball');
 
-        if (++pillSize > 30) {
-            pillSize = 0;
+        pillSize += pillStep;
+        if ((pillSize > pillMax) || (pillSize < pillMin)) {
+            pillStep = -pillStep;
         }
         
         for (i = 0; i < height; i += 1) {
 		    for (j = 0; j < width; j += 1) {
                 if (map[i][j] === Pacman.PILL) {
                     ctx.beginPath();
-
                     ctx.fillStyle = "#000";
 		            ctx.fillRect((j * blockSize), (i * blockSize), 
                                  blockSize, blockSize);
-
-                    ctx.fillStyle = "#FFF";
-                    ctx.arc((j * blockSize) + blockSize / 2,
-                            (i * blockSize) + blockSize / 2,
-                            Math.abs(5 - (pillSize/3)), 
-                            0, 
-                            Math.PI * 2, false); 
-                    ctx.fill();
                     ctx.closePath();
+
+                    ctx.drawImage(
+                        img,
+                        j * blockSize + (pillMax - pillSize) / 2,
+                        i * blockSize + (pillMax - pillSize) / 2,
+                        pillSize, pillSize);
+
                 }
 		    }
 	    }
