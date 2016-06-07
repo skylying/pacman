@@ -486,9 +486,9 @@ Pacman.User = function (game, map) {
         
         ctx.arc(((position.x/10) * size) + half, 
                 ((position.y/10) * size) + half,
-                half, 0, Math.PI * 2 * amount, true); 
-        
-        ctx.fill();    
+                half, 0, Math.PI * 2 * amount, true);
+
+        ctx.fill();
     };
 
     function draw(ctx) { 
@@ -508,7 +508,38 @@ Pacman.User = function (game, map) {
                 s / 2, Math.PI * angle.start, 
                 Math.PI * angle.end, angle.direction); 
         
-        ctx.fill();    
+        ctx.fill();
+
+
+        //Draw eyes
+        var xEyeMovePx,
+            yEyeMovePx;
+        switch(direction){
+            case LEFT:
+                xEyeMovePx = 3;
+                yEyeMovePx = -3;
+            break;
+            case RIGHT:
+                xEyeMovePx = -3;
+                yEyeMovePx = -3;
+                break;
+            case UP:
+                xEyeMovePx = 4;
+                yEyeMovePx = 1;
+            break;
+            case DOWN:
+                xEyeMovePx = 4;
+                yEyeMovePx = -2;
+                break;
+        }
+
+        ctx.fillStyle = "#dd363a";
+        ctx.beginPath();
+        ctx.moveTo((((position.x/10) * s) + s / 2)+xEyeMovePx,
+            (((position.y/10) * s) + s / 2)+yEyeMovePx);
+        ctx.arc((((position.x/10) * s) + s / 2)+xEyeMovePx,
+            (((position.y/10) * s) + s / 2)+yEyeMovePx, 2, 0, Math.PI * 2, false);
+        ctx.fill();
     };
     
     initUser();
@@ -615,7 +646,8 @@ Pacman.Map = function (size) {
 		            ctx.fillRect((j * blockSize), (i * blockSize), 
                                  blockSize, blockSize);
 
-                    ctx.fillStyle = "#FFF";
+                    //ctx.fillStyle = "#FFF";
+                    ctx.fillStyle = "#d51d28";
                     ctx.arc((j * blockSize) + blockSize / 2,
                             (i * blockSize) + blockSize / 2,
                             Math.abs(5 - (pillSize/3)), 
@@ -986,8 +1018,9 @@ var PACMAN = (function () {
             }
         } else if (state === COUNTDOWN) {
             
-            diff = 5 + Math.floor((timerStart - tick) / Pacman.FPS);
-            
+            //diff = 5 + Math.floor((timerStart - tick) / Pacman.FPS);
+            diff = 1 + Math.floor((timerStart - tick) / Pacman.FPS);
+
             if (diff === 0) {
                 map.draw(ctx);
                 setState(PLAYING);
