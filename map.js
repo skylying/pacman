@@ -105,7 +105,7 @@ Pacman.Map = function (size) {
                     ctx.fillStyle = "#222";
                     ctx.arc((j * blockSize) + blockSize / 2,
                             (i * blockSize) + blockSize / 2,
-                            Math.abs((pillSize - pillMin) / 2), 
+                            Math.abs((pillSize - pillMin) / 2 + 2),
                             0, 
                             Math.PI * 2, false); 
                     ctx.fill();
