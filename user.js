@@ -226,7 +226,7 @@ Pacman.User = function (game, map) {
     };
 
     function getColor() {
-        return poweredUp ? 'red' : '#FFFF00';
+        return poweredUp ? 'red' : '#FC0';
     }
 
     function draw(ctx) { 
