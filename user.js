@@ -8,6 +8,7 @@ Pacman.User = function (game, map) {
         due       = null, 
         lives     = null,
         score     = 5,
+        poweredUp = false,
         keyMap    = {};
     
     keyMap[KEY.ARROW_LEFT]  = LEFT;
@@ -155,18 +156,23 @@ Pacman.User = function (game, map) {
         block = map.block(nextWhole);        
         
         if ((isMidSquare(position.y) || isMidSquare(position.x)) &&
-            block === Pacman.BISCUIT || block === Pacman.PILL) {
+            block === Pacman.BISCUIT || block === Pacman.PILL || block === Pacman.TBALL) {
             
             map.setBlock(nextWhole, Pacman.EMPTY);           
             addScore((block === Pacman.BISCUIT) ? 10 : 50);
             eaten += 1;
             
-            if (eaten === 182) {
+            if (eaten === Pacman.EATABLE_COUNT) {
                 game.completedLevel();
             }
             
-            if (block === Pacman.PILL) { 
+            if (block === Pacman.PILL) {
                 game.eatenPill();
+            }
+
+            if (block === Pacman.TBALL) {
+                game.eatenPill();
+                poweredUp = game.getTick();
             }
         }   
                 
@@ -215,12 +221,24 @@ Pacman.User = function (game, map) {
         ctx.fill();    
     };
 
+    function secondsAgo(tick) { 
+        return (game.getTick() - tick) / Pacman.FPS;
+    };
+
+    function getColor() {
+        return poweredUp ? 'red' : '#FFFF00';
+    }
+
     function draw(ctx) { 
 
         var s     = map.blockSize, 
             angle = calcAngle(direction, position);
 
-        ctx.fillStyle = "#FFFF00";
+        if (poweredUp && secondsAgo(poweredUp) > 8) {
+            poweredUp = null;
+        }
+
+        ctx.fillStyle = getColor();
 
         ctx.beginPath();        
 

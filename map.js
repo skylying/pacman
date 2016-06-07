@@ -31,10 +31,11 @@ Pacman.Map = function (size) {
         if (!withinBounds(pos.y, pos.x)) {
             return false;
         }
-        var peice = map[pos.y][pos.x];
-        return peice === Pacman.EMPTY || 
-            peice === Pacman.BISCUIT ||
-            peice === Pacman.PILL;
+        var piece = map[pos.y][pos.x];
+        return piece === Pacman.EMPTY || 
+            piece === Pacman.BISCUIT ||
+            piece === Pacman.PILL ||
+            piece === Pacman.TBALL;
     }
     
     function drawWall(ctx) {
@@ -92,7 +93,26 @@ Pacman.Map = function (size) {
         
         for (i = 0; i < height; i += 1) {
 		    for (j = 0; j < width; j += 1) {
-                if (map[i][j] === Pacman.PILL) {
+                var piece = map[i][j];
+
+                if (piece === Pacman.PILL) {
+                    ctx.beginPath();
+
+                    ctx.fillStyle = "#000";
+                    ctx.fillRect((j * blockSize), (i * blockSize), 
+                            blockSize, blockSize);
+
+                    ctx.fillStyle = "#FFF";
+                    ctx.arc((j * blockSize) + blockSize / 2,
+                            (i * blockSize) + blockSize / 2,
+                            Math.abs((pillSize - pillMin) / 2), 
+                            0, 
+                            Math.PI * 2, false); 
+                    ctx.fill();
+                    ctx.closePath();
+                }
+
+                if (piece === Pacman.TBALL) {
                     ctx.beginPath();
                     ctx.fillStyle = "#000";
 		            ctx.fillRect((j * blockSize), (i * blockSize), 
@@ -104,7 +124,6 @@ Pacman.Map = function (size) {
                         j * blockSize + (pillMax - pillSize) / 2,
                         i * blockSize + (pillMax - pillSize) / 2,
                         pillSize, pillSize);
-
                 }
 		    }
 	    }
@@ -130,13 +149,14 @@ Pacman.Map = function (size) {
 
         var layout = map[y][x];
 
-        if (layout === Pacman.PILL) {
+        if (layout === Pacman.PILL || layout === Pacman.TBALL) {
             return;
         }
 
         ctx.beginPath();
         
-        if (layout === Pacman.EMPTY || layout === Pacman.BLOCK || 
+        if (layout === Pacman.EMPTY ||
+            layout === Pacman.BLOCK ||
             layout === Pacman.BISCUIT) {
             
             ctx.fillStyle = "#000";
