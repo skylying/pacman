@@ -33,7 +33,7 @@ var PACMAN = (function () {
     }
     
     function dialog(text) {
-        ctx.fillStyle = "#FFFF00";
+        ctx.fillStyle = "#EC0000";
         ctx.font      = "14px BDCartoonShoutRegular";
         var width = ctx.measureText(text).width,
             x     = ((map.width * map.blockSize) - width) / 2;        
@@ -108,13 +108,13 @@ var PACMAN = (function () {
         var topLeft  = (map.height * map.blockSize),
             textBase = topLeft + 17;
         
-        ctx.fillStyle = "#000000";
+        ctx.fillStyle = "#FFF";
         ctx.fillRect(0, topLeft, (map.width * map.blockSize), 30);
         
-        ctx.fillStyle = "#FFFF00";
+        ctx.fillStyle = "#222";
 
         for (var i = 0, len = user.getLives(); i < len; i++) {
-            ctx.fillStyle = "#FFFF00";
+            ctx.fillStyle = "#ffcc00";
             ctx.beginPath();
             ctx.moveTo(150 + (25 * i) + map.blockSize / 2,
                        (topLeft+1) + map.blockSize / 2);
@@ -130,7 +130,7 @@ var PACMAN = (function () {
         //ctx.fillText("♪", 10, textBase);
         ctx.fillText("s", 10, textBase);
 
-        ctx.fillStyle = "#FFFF00";
+        ctx.fillStyle = "#EC0000";
         ctx.font      = "14px BDCartoonShoutRegular";
         ctx.fillText("Score: " + user.theScore(), 30, textBase);
         ctx.fillText("Level: " + level, 260, textBase);
