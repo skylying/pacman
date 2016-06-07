@@ -162,7 +162,7 @@ Pacman.User = function (game, map) {
             addScore((block === Pacman.BISCUIT) ? 10 : 50);
             eaten += 1;
             
-            if (eaten === 182) {
+            if (eaten === Pacman.EATABLE_COUNT) {
                 game.completedLevel();
             }
             
