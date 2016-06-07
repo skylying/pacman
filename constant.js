@@ -41,6 +41,7 @@ Pacman.BISCUIT = 1;
 Pacman.EMPTY   = 2;
 Pacman.BLOCK   = 3;
 Pacman.PILL    = 4;
+Pacman.TBALL   = 5;
 
 Pacman.MAP = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -59,7 +60,7 @@ Pacman.MAP = [
     [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
     [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     [0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0],
-    [0, 4, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 4, 0],
+    [0, 5, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 4, 0],
     [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0],
     [0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0],
     [0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
@@ -71,7 +72,8 @@ Pacman.EATABLE_COUNT = ((function(map) {
     var eatable_count = 0;
     map.forEach(function(v1, i) {
         map[i].forEach(function(v2, j) {
-            if (map[i][j] === Pacman.BISCUIT || map[i][j] === Pacman.PILL) {
+            var piece = map[i][j];
+            if (piece === Pacman.BISCUIT || piece === Pacman.PILL || piece === Pacman.TBALL) {
                 ++eatable_count;
             }
         });
