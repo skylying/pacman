@@ -166,7 +166,11 @@ Pacman.User = function (game, map) {
                 game.completedLevel();
             }
             
-            if (block === Pacman.PILL || block === Pacman.TBALL) {
+            if (block === Pacman.PILL) {
+                game.eatenPill();
+            }
+
+            if (block === Pacman.TBALL) {
                 game.eatenPill();
                 poweredUp = game.getTick();
             }
