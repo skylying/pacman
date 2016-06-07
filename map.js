@@ -149,13 +149,14 @@ Pacman.Map = function (size) {
 
         var layout = map[y][x];
 
-        if (layout === Pacman.PILL) {
+        if (layout === Pacman.PILL || layout === Pacman.TBALL) {
             return;
         }
 
         ctx.beginPath();
         
-        if (layout === Pacman.EMPTY || layout === Pacman.BLOCK || 
+        if (layout === Pacman.EMPTY ||
+            layout === Pacman.BLOCK ||
             layout === Pacman.BISCUIT) {
             
             ctx.fillStyle = "#000";
