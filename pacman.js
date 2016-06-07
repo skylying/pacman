@@ -274,6 +274,7 @@ var PACMAN = (function () {
         audio = new Pacman.Audio({"soundDisabled":soundDisabled});
         map   = new Pacman.Map(blockSize);
         user  = new Pacman.User({ 
+            "getTick"        : getTick,
             "completedLevel" : completedLevel, 
             "eatenPill"      : eatenPill 
         }, map);
