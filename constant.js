@@ -67,6 +67,18 @@ Pacman.MAP = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
+Pacman.EATABLE_COUNT = ((function(map) {
+    var eatable_count = 0;
+    map.forEach(function(v1, i) {
+        map[i].forEach(function(v2, j) {
+            if (map[i][j] === Pacman.BISCUIT || map[i][j] === Pacman.PILL) {
+                ++eatable_count;
+            }
+        });
+    });
+    return eatable_count;
+})(Pacman.MAP));
+
 Pacman.WALLS = [
     
     [{"move": [0, 9.5]}, {"line": [3, 9.5]},
