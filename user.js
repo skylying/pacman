@@ -155,7 +155,7 @@ Pacman.User = function (game, map) {
         block = map.block(nextWhole);        
         
         if ((isMidSquare(position.y) || isMidSquare(position.x)) &&
-            block === Pacman.BISCUIT || block === Pacman.PILL) {
+            block === Pacman.BISCUIT || block === Pacman.PILL || block === Pacman.TBALL) {
             
             map.setBlock(nextWhole, Pacman.EMPTY);           
             addScore((block === Pacman.BISCUIT) ? 10 : 50);
@@ -165,7 +165,7 @@ Pacman.User = function (game, map) {
                 game.completedLevel();
             }
             
-            if (block === Pacman.PILL) { 
+            if (block === Pacman.PILL || block === Pacman.TBALL) {
                 game.eatenPill();
             }
         }   
