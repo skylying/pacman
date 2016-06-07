@@ -8,6 +8,7 @@ Pacman.User = function (game, map) {
         due       = null, 
         lives     = null,
         score     = 5,
+        poweredUp = false,
         keyMap    = {};
     
     keyMap[KEY.ARROW_LEFT]  = LEFT;
@@ -167,6 +168,7 @@ Pacman.User = function (game, map) {
             
             if (block === Pacman.PILL) { 
                 game.eatenPill();
+                poweredUp = game.getTick();
             }
         }   
                 
@@ -215,12 +217,24 @@ Pacman.User = function (game, map) {
         ctx.fill();    
     };
 
+    function secondsAgo(tick) { 
+        return (game.getTick() - tick) / Pacman.FPS;
+    };
+
+    function getColor() {
+        return poweredUp ? 'red' : '#FFFF00';
+    }
+
     function draw(ctx) { 
 
         var s     = map.blockSize, 
             angle = calcAngle(direction, position);
 
-        ctx.fillStyle = "#FFFF00";
+        if (poweredUp && secondsAgo(poweredUp) > 8) {
+            poweredUp = null;
+        }
+
+        ctx.fillStyle = getColor();
 
         ctx.beginPath();        
 
