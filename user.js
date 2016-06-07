@@ -250,7 +250,32 @@ Pacman.User = function (game, map) {
                 s / 2, Math.PI * angle.start, 
                 Math.PI * angle.end, angle.direction); 
         
-        ctx.fill();    
+        ctx.fill();
+
+        //Draw eyes
+        //var f = 3;
+        var off = {};
+        off[RIGHT] = [-3, -3];
+        off[LEFT]  = [3, -3];
+        off[UP]    = [4, 1];
+        off[DOWN]  = [4, -2];
+
+        ctx.beginPath();
+        ctx.fillStyle = "#FFF";
+        ctx.moveTo((((position.x/10) * s) + s / 2)+off[direction][0], (((position.y/10) * s) + s / 2)+off[direction][1]);
+        ctx.arc((((position.x/10) * s) + s / 2)+off[direction][0],
+                (((position.y/10) * s) + s / 2)+off[direction][1], 3, 0, Math.PI * 2, false);
+        ctx.closePath();
+        ctx.fill();
+
+
+        ctx.beginPath();
+        ctx.fillStyle = "#000";
+        ctx.moveTo((((position.x/10) * s) + s / 2)+off[direction][0], (((position.y/10) * s) + s / 2)+off[direction][1]);
+        ctx.arc((((position.x/10) * s) + s / 2)+off[direction][0],
+                (((position.y/10) * s) + s / 2)+off[direction][1], 1, 0, Math.PI * 2, false);
+        ctx.closePath();
+        ctx.fill();
     };
     
     initUser();

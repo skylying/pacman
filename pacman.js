@@ -123,6 +123,23 @@ var PACMAN = (function () {
                     (topLeft+1) + map.blockSize / 2,
                     map.blockSize / 2, Math.PI * 0.25, Math.PI * 1.75, false);
             ctx.fill();
+
+            // Draw eyes
+            var off = {};
+
+            ctx.beginPath();
+            ctx.fillStyle = "#FFF";
+            ctx.moveTo(150 + (25 * i) + map.blockSize / 2, (topLeft+1) + map.blockSize / 2);
+            ctx.arc((150 + (25 * i) + map.blockSize / 2) -3, ((topLeft+1) + map.blockSize / 2) -3, 2, 0, Math.PI * 2, false);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.fillStyle = "#000";
+            ctx.moveTo(150 + (25 * i) + map.blockSize / 2, (topLeft+1) + map.blockSize / 2);
+            ctx.arc((150 + (25 * i) + map.blockSize / 2) -3, ((topLeft+1) + map.blockSize / 2) -3, 1, 0, Math.PI * 2, false);
+            ctx.closePath();
+            ctx.fill();
         }
 
         ctx.fillStyle = !soundDisabled() ? "#00FF00" : "#FF0000";
