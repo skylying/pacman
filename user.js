@@ -255,6 +255,7 @@ Pacman.User = function (game, map) {
         //Draw eyes
         //var f = 3;
         var off = {};
+        off[direction] = [0, 0]; // Default
         off[RIGHT] = [-3, -3];
         off[LEFT]  = [3, -3];
         off[UP]    = [4, 1];
@@ -276,6 +277,7 @@ Pacman.User = function (game, map) {
                 (((position.y/10) * s) + s / 2)+off[direction][1], 1, 0, Math.PI * 2, false);
         ctx.closePath();
         ctx.fill();
+
     };
     
     initUser();
